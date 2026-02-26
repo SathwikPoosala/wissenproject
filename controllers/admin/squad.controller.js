@@ -1,5 +1,5 @@
-const Squad = require('../models/Squad.model');
-const User = require('../models/User.model');
+const Squad = require('../../models/Squad.model');
+const User = require('../../models/User.model');
 
 /**
  * @desc    Create new squad

@@ -1,4 +1,4 @@
-const { BATCH_TYPES } = require('../config/constants');
+const { BATCH_TYPES, BUFFER_BOOKING_TIME } = require('../config/constants');
 
 /**
  * Rotation Engine for Smart Seat Booking
@@ -16,7 +16,7 @@ class RotationEngine {
    */
   static getReferenceDate() {
     // Using January 1, 2024 as reference (Monday)
-    return new Date('2024-01-01T00:00:00Z');
+    return new Date(2024, 0, 1);
   }
 
   /**
@@ -26,7 +26,9 @@ class RotationEngine {
    */
   static getWeekNumber(date) {
     const referenceDate = this.getReferenceDate();
-    const diffTime = Math.abs(date - referenceDate);
+    const currentDate = new Date(date);
+    currentDate.setHours(0, 0, 0, 0);
+    const diffTime = currentDate - referenceDate;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     return Math.floor(diffDays / 7);
   }
@@ -38,7 +40,8 @@ class RotationEngine {
    */
   static getRotationWeek(date) {
     const weekNumber = this.getWeekNumber(date);
-    return (weekNumber % 2) === 0 ? 1 : 2;
+    const cycleWeek = ((weekNumber % 2) + 2) % 2;
+    return cycleWeek === 0 ? 1 : 2;
   }
 
   /**
@@ -176,13 +179,13 @@ class RotationEngine {
   }
 
   /**
-   * Check if current time allows buffer booking (after 3 PM)
+   * Check if current time allows buffer booking (after configured start hour)
    * @returns {boolean}
    */
   static canBookBuffer() {
     const now = new Date();
     const currentHour = now.getHours();
-    return currentHour >= 15; // 3:00 PM = 15:00
+    return currentHour >= BUFFER_BOOKING_TIME && currentHour < 24;
   }
 
   /**

@@ -1,0 +1,246 @@
+.book-seat-page {
+  min-height: calc(100vh - 70px);
+  padding: 24px 0;
+}
+
+.book-seat-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.book-seat-controls {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.book-seat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.book-seat-date-input {
+  height: 42px;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 0 12px;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+
+.seat-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.seat-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.seat-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+}
+
+.seat-legend-available {
+  background: var(--color-success);
+}
+
+.seat-legend-yours {
+  background: var(--color-primary);
+}
+
+.seat-legend-buffer {
+  background: var(--color-warning);
+}
+
+.seat-legend-full {
+  background: #9ca3af;
+}
+
+.seat-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.seat-meta p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.buffer-full-banner {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(245, 158, 11, 0.16);
+  color: var(--color-warning);
+  font-weight: 600;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.buffer-info-banner {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(14, 165, 233, 0.14);
+  color: var(--color-secondary);
+  font-weight: 600;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+}
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(44px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.seat {
+  border: none;
+  border-radius: 10px;
+  color: var(--text-white);
+  height: 44px;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+}
+
+.seat:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+.seat.available {
+  background: var(--color-success);
+}
+
+.seat.your-booking {
+  background: var(--color-primary);
+}
+
+.seat.buffer {
+  background: var(--color-warning);
+}
+
+.seat.full {
+  background: #9ca3af;
+}
+
+.seat:disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.seat.selected {
+  outline: 2px solid var(--color-primary-dark);
+  animation: seatPulse 0.9s ease-in-out infinite;
+}
+
+.seat-number {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+@keyframes seatPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.seat-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.seat-selected-info {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.seat-action-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.seat-empty {
+  padding: 28px;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px dashed var(--border-light);
+  border-radius: 12px;
+}
+
+.warning-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1400;
+}
+
+.warning-modal {
+  width: min(520px, 92vw);
+  background: var(--bg-primary);
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+  padding: 18px;
+}
+
+.warning-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-warning);
+}
+
+.warning-modal-header h3 {
+  margin: 0;
+  flex: 1;
+  color: var(--text-primary);
+}
+
+.warning-close-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.warning-modal p {
+  color: var(--text-secondary);
+  margin: 12px 0 16px;
+}
+
+@media (max-width: 900px) {
+  .seat-grid {
+    grid-template-columns: repeat(5, minmax(44px, 1fr));
+  }
+}

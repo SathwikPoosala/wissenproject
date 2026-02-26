@@ -1,4 +1,24 @@
 const RotationEngine = require('../utils/rotationEngine');
+const { BUFFER_BOOKING_TIME } = require('../config/constants');
+
+const parseDateOnly = (value) => {
+  if (!value) {
+    return null;
+  }
+
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const [year, month, day] = value.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  parsed.setHours(0, 0, 0, 0);
+  return parsed;
+};
 
 /**
  * @desc    Get user's weekly schedule
@@ -85,7 +105,14 @@ exports.checkScheduleForDate = async (req, res) => {
       });
     }
 
-    const date = new Date(req.params.date);
+    const date = parseDateOnly(req.params.date);
+
+    if (!date) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid date'
+      });
+    }
     const userBatch = req.user.squad.batch;
     const scheduledBatch = RotationEngine.getScheduledBatch(date);
     const isScheduled = userBatch === scheduledBatch;
@@ -130,7 +157,7 @@ exports.getRotationInfo = async (req, res) => {
         rotationWeek: currentWeek,
         scheduledBatchToday: scheduledBatch,
         canBookBufferNow: canBookBuffer,
-        bufferBookingTime: '3:00 PM',
+        bufferBookingTime: `${BUFFER_BOOKING_TIME > 12 ? BUFFER_BOOKING_TIME - 12 : BUFFER_BOOKING_TIME}:00 PM`,
         maxAdvanceBookingWeeks: 2
       }
     });

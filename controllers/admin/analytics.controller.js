@@ -1,8 +1,8 @@
-const Booking = require('../models/Booking.model');
-const User = require('../models/User.model');
-const Squad = require('../models/Squad.model');
-const { TOTAL_SEATS } = require('../config/constants');
-const RotationEngine = require('../utils/rotationEngine');
+const Booking = require('../../models/Booking.model');
+const User = require('../../models/User.model');
+const Squad = require('../../models/Squad.model');
+const { TOTAL_SEATS } = require('../../config/constants');
+const RotationEngine = require('../../utils/rotationEngine');
 
 /**
  * @desc    Get daily seat utilization

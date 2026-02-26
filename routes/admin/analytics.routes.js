@@ -6,8 +6,8 @@ const {
   getSystemOverview,
   getBookingHistory,
   getSquadAnalytics
-} = require('../controllers/admin/analytics.controller');
-const { protect, authorize } = require('../middleware/auth.middleware');
+} = require('../../controllers/admin/analytics.controller');
+const { protect, authorize } = require('../../middleware/auth.middleware');
 
 // All routes require authentication and admin role
 router.use(protect);
